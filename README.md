@@ -2,7 +2,7 @@
 
 Documentation: [https://docs.telemetree.io/](https://docs.telemetree.io/)
 
-## How to use in ASP.NET
+## How to use
 ### Add to ASP.NET
 ```C#
 builder.Services
