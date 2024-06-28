@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using Telemetree.Net.DataContracts;
+using Telemetree.Net.Helpers;
 
 namespace Telemetree.Net
 {
@@ -14,10 +16,10 @@ namespace Telemetree.Net
             _httpClient = httpClient ?? new HttpClient();
 
             if (!string.IsNullOrWhiteSpace(apiKey))
-                _httpClient.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+                _httpClient.DefaultRequestHeaders.Add("x-api-key", apiKey);
 
             if (!string.IsNullOrWhiteSpace(projectId))
-                _httpClient.DefaultRequestHeaders.Add("X-Project-Id", projectId);
+                _httpClient.DefaultRequestHeaders.Add("x-project-id", projectId);
 
             _httpClient.BaseAddress = new Uri(config.Host);
         }
@@ -27,7 +29,15 @@ namespace Telemetree.Net
             _httpClient?.Dispose();
         }
 
-        public async Task<string> PostEvent<T>(T eventObject)
+        /// <summary>
+        /// Sends event data to Telemetree
+        /// The same as Track in telemetree-react
+        /// </summary>
+        /// <typeparam name="T">Any object type</typeparam>
+        /// <param name="eventObject">Your object data</param>
+        /// <returns>Server response if event accepted</returns>
+        /// <exception cref="Exception">Received error.</exception>
+        public async Task<string> SendAsync<T>(T eventObject)
         {
             var jsonPayload = EncryptEventData(eventObject);
             StringContent content = new StringContent(jsonPayload, System.Text.Encoding.UTF8, "application/json");

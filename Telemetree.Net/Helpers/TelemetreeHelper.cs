@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Telemetree.Net.DataContracts;
 
-namespace Telemetree.Net
+namespace Telemetree.Net.Helpers
 {
     public static class TelemetreeHelper
     {
@@ -16,6 +17,6 @@ namespace Telemetree.Net
 
                 return JsonConvert.DeserializeObject<TelemetreeConfig>(await response.Content.ReadAsStringAsync());
             }
-        } 
+        }
     }
 }

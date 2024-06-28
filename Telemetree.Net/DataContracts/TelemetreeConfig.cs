@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Telemetree.Net
+namespace Telemetree.Net.DataContracts
 {
     public class TelemetreeConfig
     {

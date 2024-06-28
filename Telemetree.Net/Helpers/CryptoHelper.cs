@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Telemetree.Net
+namespace Telemetree.Net.Helpers
 {
     internal static class CryptoHelper
     {
