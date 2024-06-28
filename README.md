@@ -29,7 +29,7 @@ public async Task ProcessUpdateAsync(Telegram.Bot.Types.Update update)
     // sending telemetree event. Could be done in parallel with handling update
     try
     {
-        var telemetryResult = await _telemetreeEventsHttpClient.SendAsync(update);
+        var telemetreeResult = await _telemetreeEventsHttpClient.SendAsync(update);
     }
     catch (Exception ex)
     {
@@ -58,7 +58,7 @@ public async Task ProcessUpdateAsync(Telegram.Bot.Types.Update update)
 
 ### Send some event data
 ```C#
-    var telemetryResult = await _telemetreeEventsHttpClient.SendAsync(new TelemetreeEvent()
+    var telemetreeResult = await _telemetreeEventsHttpClient.SendAsync(new TelemetreeEvent()
 	{
 		AppName = "YOUR_APP_NAME",
 		EventName = "MainButtonPressed",
