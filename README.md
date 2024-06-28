@@ -1,6 +1,6 @@
 # TON Solutions Telemetree library for .NET
 
-Documentation: https://docs.ton.solutions/
+Documentation: [https://docs.telemetree.io/](https://docs.telemetree.io/)
 
 ## How to use in ASP.NET
 ```C#
