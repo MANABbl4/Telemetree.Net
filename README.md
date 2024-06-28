@@ -18,7 +18,7 @@ builder.Services
 ```C#
 public async Task ProcessUpdateAsync(Telegram.Bot.Types.Update update)
 {
-    // sending telemetree event. May be done in parallel with handling update
+    // sending telemetree event. Could be done in parallel with handling update
     try
     {
         var telemetryResult = await _telemetreeEventsHttpClient.PostEvent(update);
