@@ -19,7 +19,7 @@ namespace Telemetree.Net
             if (!string.IsNullOrWhiteSpace(projectId))
                 _httpClient.DefaultRequestHeaders.Add("X-Project-Id", projectId);
 
-            _httpClient.BaseAddress = new Uri("https://api-analytics.ton.solutions/events");
+            _httpClient.BaseAddress = new Uri(config.Host);
         }
 
         public void Dispose()
