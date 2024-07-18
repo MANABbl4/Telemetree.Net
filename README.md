@@ -29,7 +29,30 @@ public async Task ProcessUpdateAsync(Telegram.Bot.Types.Update update)
     // sending telemetree event. Could be done in parallel with handling update
     try
     {
-        var telemetreeResult = await _telemetreeEventsHttpClient.SendAsync(update);
+        var telemetreeResult = await _telemetreeEventsHttpClient.SendAsync(new TelemetreeEvent()
+		{
+			AppName = "MyAppName",
+			IsAutocapture = true,
+			EventName = update.Type.ToString(),
+			EventDetails = new EventDetails()
+			{
+				StartParameter = update.Message?.Text,
+				Path = "",
+				Params = new Dictionary<string, object>()
+			},
+			UserDetails = new EventUserDetails()
+			{
+				FirstName = update.Message?.From.FirstName,
+				LastName = update.Message?.From.LastName,
+				Username = update.Message?.From.Username,
+				IsPremium = update.Message?.From.IsPremium ?? false
+			},
+			TelegramId = update.Message?.From?.Id.ToString(),
+			Language = update.Message?.From?.LanguageCode,
+			Device = "unknown",
+			Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
+			SessionIdentifier = "User session guid, need to implement",
+		});
     }
     catch (Exception ex)
     {
@@ -54,32 +77,4 @@ public async Task ProcessUpdateAsync(Telegram.Bot.Types.Update update)
         await HandlerErrorAsync(ex);
     }
 }
-```
-
-### Send some event data
-```C#
-    var telemetreeResult = await _telemetreeEventsHttpClient.SendAsync(new TelemetreeEvent()
-	{
-		AppName = "YOUR_APP_NAME",
-		EventName = "MainButtonPressed",
-		UserDetails = new EventUserDetails()
-		{
-			Username = "User name",
-			FirstName = "First name"
-		},
-		EventDetails = new EventDetails()
-		{
-			Path = "MainButton location",
-			Params = new Dictionary<string, object>() // your MainButton additional params
-		},
-		TelegramId = "Telegram user Id",
-		Language = "Telegram user Lang",
-		Device = "Telegram user Device",
-		Referrer = "N/A",
-		ReferrerType = "0",
-		Timestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(),
-		IsAutocapture = false,
-		Wallet = null,
-		SessionIdentifier = "User session guid, need to implement"
-	});
 ```

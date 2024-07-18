@@ -32,7 +32,7 @@ namespace Telemetree.Net.DataContracts
         public string Referrer { get; set; } = "0";
 
         [JsonProperty("timestamp", Required = Required.Always)]
-        public string Timestamp { get; set; }
+        public long Timestamp { get; set; }
 
         [JsonProperty("isAutocapture", Required = Required.Always)]
         public bool IsAutocapture { get; set; }
